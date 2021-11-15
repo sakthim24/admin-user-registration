@@ -8,7 +8,7 @@ import { useAuth } from '../userauthcontext';
 
 export default function Myprofile() {
     const [userstat, setuserstat] = useState([])
-    const [isUpdate, setisUpdate] = useState(false)
+  
     const {currentuser } = useAuth()
     const navigate= useNavigate();
    
@@ -24,7 +24,7 @@ export default function Myprofile() {
         }
         fetchrecords()
       
-      }, [isUpdate]);
+      }, );
 
     
      

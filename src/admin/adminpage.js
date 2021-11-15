@@ -6,7 +6,6 @@ import { db } from '../firebase-config'
 import { useNavigate } from 'react-router-dom';
 export default function Adminpage() {
     const [userstat, setuserstat] = useState([])
-    const [isUpdate, setisUpdate] = useState(false)
     const {currentuser } = useAuth()
     const navigate= useNavigate();
    
@@ -22,7 +21,7 @@ export default function Adminpage() {
         }
         fetchrecords()
       
-      }, [isUpdate]);
+      }, );
 
     
      

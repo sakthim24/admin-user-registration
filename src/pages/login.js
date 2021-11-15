@@ -2,8 +2,7 @@ import { React, useState } from 'react'
 import { Layout } from '../components/layout';
 import { useAuth } from '../userauthcontext';
 import { Link} from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 
 function Login() {
   const [Email, setEmail] = useState("");
@@ -28,7 +27,7 @@ function Login() {
 
   return (
    <Layout>
-       <ToastContainer position="bottom-right" />
+       
       <div className=" h-5/6 w-11/12 md:ml-16 text-gray-800 antialiased px-4 py-2 md:py-6 flex flex-col justify-center ">
         <div className=" relative py-10 w-10/12 md:w-4/12  mx-auto text-center">
           <div className="bg-purple-600 md:relative mt-4  shadow-lg w-100 sm:rounded-lg text-left">

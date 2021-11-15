@@ -2,8 +2,7 @@ import { React, useState } from 'react'
 import { Layout } from '../components/layout';
 import { useAuth } from '../userauthcontext';
 import { Link} from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 export default function Register() {
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
@@ -14,6 +13,7 @@ export default function Register() {
     const [isNull, setisNull] = useState(false)
     const creator="none";
   
+
     const registeruser = async (e) => {
       e.preventDefault()
      
@@ -28,7 +28,6 @@ export default function Register() {
     }
     return (
       <Layout>
-          <ToastContainer position="bottom-right" />
         <div className="bg-white h-5/6 w-11/12 md:ml-16 bg-transparent  text-white antialiased px-4 py-2 md:py-6 flex flex-col justify-center ">
         <div className=" relative py-10 w-10/12 md:w-4/12  mx-auto text-center">
           <div className="bg-purple-600 md:relative mt-4 bg-white shadow-lg w-100 sm:rounded-lg text-left">
@@ -37,13 +36,7 @@ export default function Register() {
             <form className="py-1 md:py-6 px-8">
               <h1 className="text-center mb-3 md:mb-4 block font-extrabold text-2xl  text-white">REGISTER</h1>
               <div className="mb-2 md:mb-4">
-              <select className="mb-1 md:mb-2  text-black text-sm font-bold bg-white border-2 border-black rounded" onChange={async e => {
-                e.preventDefault()
-                await setuserType(e.target.value)
-                 }} >
-              <option  value="user">user</option>
-                <option value="admin">Admin</option>
-              </select>
+            
                 </div>
               <div className="mb-2 md:mb-4">
                 <label className="block  text-white text-sm font-bold mb-2">

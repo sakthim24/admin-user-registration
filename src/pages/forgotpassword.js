@@ -5,7 +5,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function Forgotpassword() {
     const [loginEmail, setLoginEmail] = useState("");
-    const [isSubmit, setIsSubmit] = useState(false)
     const [isNull, setisNull] = useState(false)
     
     const resetpassword = (e) => {
