@@ -34,7 +34,7 @@ const Navbar = () => {
           <div className="flex justify-between">
             <div className="md:flex md:space-x-5">
               <span className="flex items-center py-4 px-2  font-black tracking-tighter hover:text-purple-800  text-xl  md:text-4xl text-purple-600 "> Admin User Registration </span></div>
-            <div className="hidden md:flex items-center text-xl mr-4 space-x-2">
+            <div className="flex items-center text-xl mr-4 space-x-2">
 
           
               {!currentuser &&  <Navlink to='/login' name='Login' />}
