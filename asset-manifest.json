@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/admin-user-registration/static/css/main.a6a82fd5.chunk.css",
+    "main.js": "/admin-user-registration/static/js/main.3fb35e0e.chunk.js",
+    "main.js.map": "/admin-user-registration/static/js/main.3fb35e0e.chunk.js.map",
+    "runtime-main.js": "/admin-user-registration/static/js/runtime-main.ac95a008.js",
+    "runtime-main.js.map": "/admin-user-registration/static/js/runtime-main.ac95a008.js.map",
+    "static/css/2.7f2ec892.chunk.css": "/admin-user-registration/static/css/2.7f2ec892.chunk.css",
+    "static/js/2.c1ca999c.chunk.js": "/admin-user-registration/static/js/2.c1ca999c.chunk.js",
+    "static/js/2.c1ca999c.chunk.js.map": "/admin-user-registration/static/js/2.c1ca999c.chunk.js.map",
+    "static/js/3.2f6fc5f5.chunk.js": "/admin-user-registration/static/js/3.2f6fc5f5.chunk.js",
+    "static/js/3.2f6fc5f5.chunk.js.map": "/admin-user-registration/static/js/3.2f6fc5f5.chunk.js.map",
+    "index.html": "/admin-user-registration/index.html",
+    "static/css/2.7f2ec892.chunk.css.map": "/admin-user-registration/static/css/2.7f2ec892.chunk.css.map",
+    "static/css/main.a6a82fd5.chunk.css.map": "/admin-user-registration/static/css/main.a6a82fd5.chunk.css.map",
+    "static/js/2.c1ca999c.chunk.js.LICENSE.txt": "/admin-user-registration/static/js/2.c1ca999c.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ac95a008.js",
+    "static/css/2.7f2ec892.chunk.css",
+    "static/js/2.c1ca999c.chunk.js",
+    "static/css/main.a6a82fd5.chunk.css",
+    "static/js/main.3fb35e0e.chunk.js"
+  ]
+}
