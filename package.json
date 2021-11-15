@@ -1,6 +1,5 @@
 {
-  
-  "name": "get-users-app",
+   "name": "get-users-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
