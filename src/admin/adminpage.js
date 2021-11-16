@@ -1,30 +1,12 @@
-import {React,useState,useEffect} from 'react'
+import {React} from 'react'
 import { Layout } from '../components/layout';
-import { useAuth } from '../userauthcontext';
-import { collection,  getDocs } from '@firebase/firestore'
-import { db } from '../firebase-config'
 import { useNavigate } from 'react-router-dom';
-export default function Adminpage() {
-    const [userstat, setuserstat] = useState([])
-    const {currentuser } = useAuth()
-    const navigate= useNavigate();
-   
-    useEffect(() => {
-        if(!currentuser) navigate('/login')
-        const fetchrecords=async()=>{
-          const collref=collection(db,"users");
-          const snapshot = await getDocs(collref);
-          setuserstat(snapshot.docs.map((doc)=>({ ...doc.data(), id: doc.id})))
-          console.log(userstat)
-          console.log(userstat.email);
-          console.log(currentuser);
-        }
-        fetchrecords()
-      
-      }, );
+import  Navbar from '../components/Navbar'
 
-    
-     
+export default function Adminpage() {
+
+    const navigate= useNavigate();
+      
     const myprofile = () => {
     navigate('/profile')
     }
@@ -44,7 +26,7 @@ export default function Adminpage() {
     
     return (
         <Layout>
-        
+        <Navbar userType="admin"/>
       <div className=" h-5/6 w-11/12 md:ml-16  text-gray-800 antialiased px-4 py-2 md:py-6 flex flex-col justify-center ">
         <div className="relative py-10 min-h-3/4 w-10/12 min-w-3/4 md:w-4/12  mx-auto text-center">
           <div className="md:relative mt-4 shadow-lg w-100 sm:rounded-lg text-left">

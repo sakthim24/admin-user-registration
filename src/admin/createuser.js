@@ -1,7 +1,7 @@
 import { React, useState } from 'react'
 import { Layout } from '../components/layout';
 import { useAuth } from '../userauthcontext';
-
+import  Navbar from '../components/Navbar'
 export default function Createuser() {
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
@@ -10,23 +10,31 @@ export default function Createuser() {
     const [userType, setuserType] = useState("user")
     const { register,currentuser } = useAuth()
     const [isNull, setisNull] = useState(false)
-    
-  
+    const [ispasslen, setispasslen] = useState(false)
+    const [isemailvalid, setisemailvalid] = useState(false)
+    const [isphonelen, setisphonelen] = useState(false)
     const createuser = async (e) => {
       e.preventDefault()
       const creator=currentuser;
+      let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
       if (!Email || !Password || !Username || !Phone) setisNull(true);
-  
       else {
         setisNull(false);
-       
-        await register(Username, Phone, Email, Password, userType, creator)
-        console.log("Sent inn")
+       if(Password.length < 6) setispasslen(true);
+       else if (Email.match(/.+@.+/)) setisemailvalid(true);
+       else if (Phone.length < 10) setisphonelen(true);
+       else{
+        setisphonelen(false);
+        setispasslen(false);
+        setisemailvalid(false);
+        await register(Username, Phone, Email, Password, userType ,creator)
+       }
       }
     }
     return (
       <Layout>
-         
+           <Navbar userType="admin"/>
         <div className=" h-5/6 w-11/12 md:ml-16 bg-transparent text-white antialiased px-4 py-2 md:py-6 flex flex-col justify-center ">
         <div className="relative py-10 w-10/12 md:w-4/12  mx-auto text-center">
           <div className="bg-purple-600 md:relative mt-4 bg-white shadow-lg w-100 sm:rounded-lg text-left">
@@ -68,7 +76,7 @@ export default function Createuser() {
                   placeholder="Enter valid email"
                   onChange={(event) => {
                     setEmail(event.target.value);
-                  }} />
+                  }} />{isemailvalid && <span className="mt-2 text-red-600 text-sm">*Enter valid Email</span>}
               </div>
               <div className="mb-2 md:mb-4">
                 <label className="block  text-sm font-bold mb-2">
@@ -82,7 +90,8 @@ export default function Createuser() {
                   onChange={(event) => {
                     setPhone(event.target.value);
                   }}
-                   />
+                   /> {isphonelen && <span className="mt-2 text-red-600 text-sm">*Enter valid phone number</span>}
+                   
               </div>
               <div className="mb-2 md:mb-4">
                 <label className="block  text-sm font-bold mb-2">
@@ -97,6 +106,8 @@ export default function Createuser() {
                     setPassword(event.target.value);
                   }} />
                 {isNull && <span className="text-red-600 text-sm">*All fields are required</span>}
+                {ispasslen && <span className="mt-2 text-red-600 text-sm">*Password should be atleat 6 characters</span>}
+                
               </div>
               <div className="flex mt-3 mb-3 md:mt-0 items-center justify-center">
                 <button

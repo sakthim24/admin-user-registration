@@ -4,28 +4,10 @@ import { db } from '../firebase-config'
 import Navlink from './navlink';
 import { useAuth } from '../userauthcontext';
 
-const Navbar = () => {
-  const { currentuser,logout } = useAuth()
+const Navbar = (userType) => {
+  const { currentuser,logout} = useAuth()
 
-  const [userstat, setuserstat] = useState([])
-  const [userType, setuserType] = useState("")
-   
-  useEffect(() => {
-   
-    const fetchrecords=async()=>{
-      const collref=collection(db,"users");
-      const snapshot = await getDocs(collref);
-      setuserstat(snapshot.docs.map((doc)=>({ ...doc.data(), id: doc.id})))
-      await  userstat.map(stat=> {
-        console.log(stat.email);
-         if(stat.email === currentuser) setuserType(stat.role)
-         
-      })
-    }
-    fetchrecords()
-  
-  }, );
-    
+
     return (
         <>
     <div>
@@ -39,7 +21,7 @@ const Navbar = () => {
           
               {!currentuser &&  <Navlink to='/login' name='Login' />}
                {!currentuser &&  <Navlink to='/register' name='Register' />}
-              {userType ==='user' ?<Navlink to='/userpage' name='My profile' />:userType ==='admin' ?<Navlink to='/adminpage' name='Adminpage' />:<></> }
+              {userType.userType ==='user' ?<Navlink to='/userpage' name='My profile' />:userType.userType ==='admin' ?<Navlink to='/adminpage' name='Adminpage' />:<></> }
                {currentuser &&  <Navlink to='/login' name='Logout'
                 onClick={logout} />}
             </div>

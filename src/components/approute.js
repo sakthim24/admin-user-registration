@@ -17,6 +17,7 @@ import Viewusers from '../admin/viewusers'
 import Viewadmin from '../admin/viewadmin'
 import Createuser from '../admin/createuser'
 import Myusers from '../admin/myusers'
+import Edit from '../admin/edit'
 
 export default function AppRouter(props) {
   return (
@@ -36,6 +37,7 @@ export default function AppRouter(props) {
           <Route path='/viewadmins' element={<Viewadmin/>}  ></Route>  
           <Route path='/createuser' element={<Createuser/>}  ></Route>  
           <Route path='/myusers' element={<Myusers/>}  ></Route>  
+          <Route path='/edituser' element={<Edit/>}  ></Route> 
         </Routes>
     
       </AuthContextProvider>

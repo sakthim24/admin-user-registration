@@ -4,28 +4,25 @@ import { db } from '../firebase-config'
 import { useNavigate } from 'react-router-dom';
 import { Layout } from '../components/layout';
 import { useAuth } from '../userauthcontext';
-
+import  Navbar from '../components/Navbar'
 
 export default function Myprofile() {
-    const [userstat, setuserstat] = useState([])
   
-    const {currentuser } = useAuth()
-    const navigate= useNavigate();
-   
+  const {currentuser} = useAuth()
+  const [userstat, setuserstat] = useState([])
+  const [isUpdate, setisUpdate] = useState(false)
+  const navigate= useNavigate();
     useEffect(() => {
-        if(!currentuser) navigate('/login')
-        const fetchrecords=async()=>{
-          const collref=collection(db,"users");
-          const snapshot = await getDocs(collref);
-          setuserstat(snapshot.docs.map((doc)=>({ ...doc.data(), id: doc.id})))
-          console.log(userstat)
-          console.log(userstat.email);
-          console.log(currentuser);
-        }
-        fetchrecords()
-      
-      }, );
-
+  
+      const fetchrecords=async()=>{
+      const collref=collection(db,"users");
+      const snapshot = await getDocs(collref);
+      setuserstat(snapshot.docs.map((doc)=>({ ...doc.data(), id: doc.id})))
+     console.log("usedd userpage")
+    }
+    fetchrecords()
+  
+  },[isUpdate]);
     
      
       const redirect = () => {
@@ -35,7 +32,7 @@ export default function Myprofile() {
     
     return (
         <Layout>
-        
+         <Navbar userType="admin"/>
       <div className="bg-white h-5/6 w-11/12 md:ml-16  text-white antialiased px-4 py-2 md:py-6 flex flex-col justify-center ">
         <div className="relative py-10 min-h-3/4 w-10/12 min-w-3/4 md:w-4/12  mx-auto text-center">
           <div className="bg-purple-600 md:relative mt-4 shadow-lg w-100 sm:rounded-lg text-left">

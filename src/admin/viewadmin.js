@@ -4,32 +4,30 @@ import { useAuth } from '../userauthcontext';
 import { collection, getDocs } from '@firebase/firestore'
 import { db } from '../firebase-config'
 import { useNavigate } from 'react-router-dom';
-
+import  Navbar from '../components/Navbar'
 
 
 export default function Viewadmin() {
     const [userstat, setuserstat] = useState([])
     const {currentuser } = useAuth()
     const navigate= useNavigate();
-   
+    const [isUpdate, setisUpdate] = useState(false)
     useEffect(() => {
         if(!currentuser) navigate('/login')
         const fetchrecords=async()=>{
           const collref=collection(db,"users");
           const snapshot = await getDocs(collref);
           setuserstat(snapshot.docs.map((doc)=>({ ...doc.data(), id: doc.id})))
-          console.log(userstat)
-          console.log(userstat.email);
-          console.log(currentuser);
+          console.log("used viewuser");
         }
         fetchrecords()
       
-      }, );
+      },[isUpdate] );
  
     
     return (
         <Layout>  
-
+<Navbar userType="admin"/>
         <div className=" h-5/6 w-11/12 md:ml-16 bg-transparent text-white antialiased px-4 py-2 md:py-6 flex flex-col justify-center ">
         <div className="relative py-10 w-11/12 md:w-8/12  mx-auto text-center">
           <div className="md:relative mt-4 bg-purple-500 shadow-lg w-100 sm:rounded-lg text-left">

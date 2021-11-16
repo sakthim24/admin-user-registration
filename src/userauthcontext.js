@@ -6,14 +6,15 @@ import {toast,ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AuthContext = createContext({
+ 
   usertype:null,
   currentuser:null,
-  userstat:null,
    login: () => Promise,
   register: () => Promise,
   logout: () => Promise,
   Updateuser: () => Promise,
    resetPassword: () => Promise,
+   Edituser: () => Promise,
 })
 export const useAuth = () => useContext(AuthContext)
 
@@ -24,16 +25,20 @@ export function AuthContextProvider({ children }) {
   var usertype="";
  const [userstat, setuserstat] = useState([])
  const [currentuser, setcurrentuser] = useState(null)
+ const [isUpdate, setisUpdate] = useState(false)
+ const collref=collection(db,"users");
+
+
 
   const login = async (email,password)=>  {
     isauth=false;
-    const collref = collection(db, "users");
-  const snapshot = await getDocs(collref);
-  setuserstat(snapshot.docs.map((doc)=>({ ...doc.data(), id: doc.id})))
-
+    fetchdata();
+   
+    const snapshot = await getDocs(collref);
+    console.log("usedd loginn");
+    setuserstat(snapshot.docs.map((doc)=>({ ...doc.data(), id: doc.id})))
  await  userstat.map(stat=> {
-  
-   console.log(stat.email);
+
      if(stat.email === email && stat.password === password) {
        isauth=true; 
        usertype=stat.role  
@@ -53,10 +58,9 @@ export function AuthContextProvider({ children }) {
   const register = async (username,phone,email,password,role,creat) => {
 
   isuser=false;
-  const collref = collection(db, "users");
   const snapshot = await getDocs(collref);
   setuserstat(snapshot.docs.map((doc)=>({ ...doc.data(), id: doc.id})))
-
+  console.log("usedd register");
  await  userstat.map(stat=> {
    
      if(stat.email === email) isuser=true;
@@ -68,6 +72,7 @@ export function AuthContextProvider({ children }) {
       
     }
     else{
+      
     try {
       await setDoc(doc(collref, email), { username:username,phone:phone, email: email, password:password ,role:role ,creator:creat}, { merge: true })
       toast.success("User created successfully")
@@ -88,6 +93,14 @@ export function AuthContextProvider({ children }) {
     navigate('/userpage')
 
   }
+
+  const Edituser  = async (name, phone,usertype) => {
+    const collref = collection(db, "users");
+    console.log(usertype);
+    await updateDoc(doc(collref, currentuser), {username:name,phone:phone,role:usertype})
+    toast.success("Updated successfully")
+   // navigate('/adminpage')
+  }
   const logout = async () => {
   setcurrentuser("");
   toast.success("Loggedout successfully")
@@ -99,8 +112,15 @@ export function AuthContextProvider({ children }) {
     navigate('/login')
   }
 
+  
+  const fetchdata = () => {
+    setisUpdate(true);
+   
+  }
+  
+
  const value = {
-  userstat,
+
    usertype,
   currentuser,
      login,
@@ -108,6 +128,7 @@ export function AuthContextProvider({ children }) {
     register,
     Updateuser,
      resetPassword,
+    Edituser,
   }
   return( <AuthContext.Provider value={value}>{children}<ToastContainer position="bottom-right" /></AuthContext.Provider>)
 }

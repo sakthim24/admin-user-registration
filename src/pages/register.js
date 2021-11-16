@@ -2,6 +2,9 @@ import { React, useState } from 'react'
 import { Layout } from '../components/layout';
 import { useAuth } from '../userauthcontext';
 import { Link} from 'react-router-dom';
+import { collection, getDocs } from '@firebase/firestore'
+import { db } from '../firebase-config';
+import  Navbar from '../components/Navbar'
 
 export default function Register() {
     const [Email, setEmail] = useState("");
@@ -11,23 +14,33 @@ export default function Register() {
     const [userType, setuserType] = useState("user")
     const { register } = useAuth()
     const [isNull, setisNull] = useState(false)
+    const [ispasslen, setispasslen] = useState(false)
     const creator="none";
-  
+    const [isemailvalid, setisemailvalid] = useState(false)
+    const [isphonelen, setisphonelen] = useState(false)
+
 
     const registeruser = async (e) => {
       e.preventDefault()
      
       if (!Email || !Password || !Username || !Phone) setisNull(true);
-  
       else {
         setisNull(false);
-       
+       if(Password.length < 6) setispasslen(true);
+       else if (!Email.match(/.+@.+/)) setisemailvalid(true);
+       else if (Phone.length < 10) setisphonelen(true);
+       else{
+         console.log(isemailvalid);
+         setisphonelen(false);
+         setispasslen(false);
+         setisemailvalid(false);
         await register(Username, Phone, Email, Password, userType ,creator)
-       
+       }
       }
     }
     return (
       <Layout>
+         <Navbar/>
         <div className="bg-white h-5/6 w-11/12 md:ml-16 bg-transparent  text-white antialiased px-4 py-2 md:py-6 flex flex-col justify-center ">
         <div className=" relative py-10 w-10/12 md:w-4/12  mx-auto text-center">
           <div className="bg-purple-600 md:relative mt-4 bg-white shadow-lg w-100 sm:rounded-lg text-left">
@@ -64,7 +77,7 @@ export default function Register() {
                   placeholder="Enter valid email"
                   onChange={(event) => {
                     setEmail(event.target.value);
-                  }} />
+                  }} />{isemailvalid && <span className="mt-2 text-red-600 text-sm">*Enter valid Email</span>}
               </div>
               <div className="mb-2 md:mb-4">
                 <label className="block  text-white text-sm font-bold mb-2">
@@ -79,6 +92,7 @@ export default function Register() {
                     setPhone(event.target.value);
                   }}
                    />
+                    {isphonelen && <span className="mt-2 text-red-600 text-sm">*Enter valid phone number</span>}
               </div>
               <div className="mb-2 md:mb-4">
                 <label className="block  text-white text-sm font-bold mb-2">
@@ -93,6 +107,7 @@ export default function Register() {
                     setPassword(event.target.value);
                   }} />
                 {isNull && <span className="mt-2 text-red-600 text-sm">*All fields are required</span>}
+                {ispasslen && <span className="mt-2 text-red-600 text-sm">*Password should be atleat 6 characters</span>}
               </div>
               <div className="flex mt-3 mb-3 md:mt-0 items-center justify-center">
                 <button

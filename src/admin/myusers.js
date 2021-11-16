@@ -6,7 +6,7 @@ import { db } from '../firebase-config'
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import  Navbar from '../components/Navbar'
 
 export default function  Myusers() {
     const [userstat, setuserstat] = useState([])
@@ -20,9 +20,7 @@ export default function  Myusers() {
           const collref=collection(db,"users");
           const snapshot = await getDocs(collref);
           setuserstat(snapshot.docs.map((doc)=>({ ...doc.data(), id: doc.id})))
-          console.log(userstat)
-          console.log(userstat.email);
-          console.log(currentuser);
+          console.log("used muyde");
         }
         fetchrecords()
       
@@ -38,6 +36,7 @@ export default function  Myusers() {
       }
     return (
         <Layout>  
+           <Navbar userType="admin"/>
             <ToastContainer position="bottom-right" />
         <div className=" h-5/6 w-11/12 md:ml-16 bg-transparent text-white antialiased px-4 py-2 md:py-6 flex flex-col justify-center ">
         <div className="relative py-10 w-11/12 md:w-8/12  mx-auto text-center">

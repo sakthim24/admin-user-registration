@@ -6,7 +6,7 @@ import { db } from '../firebase-config'
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import  Navbar from '../components/Navbar'
 
 export default function Viewusers() {
     const [userstat, setuserstat] = useState([])
@@ -20,9 +20,7 @@ export default function Viewusers() {
           const collref=collection(db,"users");
           const snapshot = await getDocs(collref);
           setuserstat(snapshot.docs.map((doc)=>({ ...doc.data(), id: doc.id})))
-          console.log(userstat)
-          console.log(userstat.email);
-          console.log(currentuser);
+          console.log("used viewuser");
         }
         fetchrecords()
       
@@ -35,9 +33,13 @@ export default function Viewusers() {
            setisUpdate(true);
       })
       }
+      const redirect = () => {
+        navigate('/edituser')
+     }
     
     return (
         <Layout>
+          <Navbar userType="admin"/>
           <ToastContainer position="bottom-right" />
         <div className=" h-5/6 w-11/12 md:ml-16 bg-transparent text-white antialiased px-4 py-2 md:py-6 flex flex-col justify-center ">
         <div className="relative py-10 w-11/12 md:w-8/12  mx-auto text-center">
@@ -90,7 +92,8 @@ export default function Viewusers() {
                    {stat.creator}
                    </td>
                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center font-bold">
-                    <button className="text-black bg-white border border-black font-bold" onClick={() => deleteAccount(stat.id)}>Delete</button>
+                    <button className="text-black bg-red-500 border border-black font-bold" onClick={() => deleteAccount(stat.id)}>Delete</button>
+                   
                     </td>
                 </tr>
             </tbody>
