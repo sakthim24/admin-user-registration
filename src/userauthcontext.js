@@ -107,11 +107,25 @@ export function AuthContextProvider({ children }) {
   }
 
   const resetPassword  = async (email, newpassword) => {
+    const snapshot = await getDocs(collref);
+    setuserstat(snapshot.docs.map((doc)=>({ ...doc.data(), id: doc.id})))
+    
+   await  userstat.map(stat=> {
+     
+       if(stat.email === email) isuser=true;
+       
+    })
+   
+      if(!isuser) {
+        toast.error("No user Found")
+        
+      }
+      else{
     const collref = collection(db, "users");
     await updateDoc(doc(collref, email), {password:newpassword })
     navigate('/login')
   }
-
+  }
   
   const fetchdata = () => {
     setisUpdate(true);

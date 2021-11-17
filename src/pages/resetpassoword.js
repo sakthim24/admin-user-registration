@@ -7,13 +7,13 @@ function Resetpassword() {
   const [isSubmit, setIsSubmit] = useState(false)
   const { resetPassword} = useAuth()
   const [isNull, setisNull] = useState(false)
-
+  const [ispasslen, setispasslen] = useState(false)
 
 
   const resetpassworduser = async (e) => {
     e.preventDefault()
     if (!Email || !loginPassword) setisNull(true);
-
+    else  if(loginPassword.length < 6) setispasslen(true);
     else {
       setisNull(false);
       setIsSubmit(true)
@@ -23,7 +23,7 @@ function Resetpassword() {
 
   return (
  
-      <div className=" h-5/6 w-11/12 md:ml-16  text-white antialiased px-4 py-2 md:py-6 flex flex-col justify-center ">
+      <div className="bg-transparent h-5/6 w-11/12 md:ml-16  text-white antialiased px-4 py-2 md:py-6 flex flex-col justify-center ">
         <div className="relative py-10 w-10/12 md:w-4/12  mx-auto text-center">
           <div className="bg-purple-800 md:relative mt-4 shadow-lg w-100 sm:rounded-lg text-left">
       
@@ -54,7 +54,8 @@ function Resetpassword() {
                   onChange={(event) => {
                     setLoginPassword(event.target.value);
                   }} />
-                {isNull && <span className="text-red-600 text-sm">*Password field is empty</span>}
+                {isNull && <span className="text-red-600 text-sm">*Any field should not be empty</span>}
+                {ispasslen && <span className="mt-2 text-red-600 text-sm">*Password should be atleat 6 characters</span>}
               </div>
               <div className="flex mt-3 md:mt-0 items-center justify-center">
                 <button

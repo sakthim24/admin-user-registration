@@ -2,8 +2,6 @@ import { React, useState } from 'react'
 import { Layout } from '../components/layout';
 import { useAuth } from '../userauthcontext';
 import { Link} from 'react-router-dom';
-import { collection, getDocs } from '@firebase/firestore'
-import { db } from '../firebase-config';
 import  Navbar from '../components/Navbar'
 
 export default function Register() {
@@ -41,7 +39,7 @@ export default function Register() {
     return (
       <Layout>
          <Navbar/>
-        <div className="bg-white h-5/6 w-11/12 md:ml-16 bg-transparent  text-white antialiased px-4 py-2 md:py-6 flex flex-col justify-center ">
+        <div className="h-5/6 w-11/12 md:ml-16 bg-transparent  text-white antialiased px-4 py-2 md:py-6 flex flex-col justify-center ">
         <div className=" relative py-10 w-10/12 md:w-4/12  mx-auto text-center">
           <div className="bg-purple-600 md:relative mt-4 bg-white shadow-lg w-100 sm:rounded-lg text-left">
           

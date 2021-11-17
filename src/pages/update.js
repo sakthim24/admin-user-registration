@@ -10,7 +10,7 @@ export default function Update() {
     const [Phone, setPhone] = useState("")
     const {Updateuser,currentuser } = useAuth()
     const [isNull, setisNull] = useState(false)
- 
+    const [isphonelen, setisphonelen] = useState(false)
     const navigate= useNavigate();
 
     useEffect(() => {
@@ -20,7 +20,7 @@ export default function Update() {
     const updateuser = async (e) => {
         e.preventDefault()
         if ( !Username || !Phone) setisNull(true);
-    
+        else if (Phone.length < 10) setisphonelen(true);
         else {
           setisNull(false);
           await Update(Username, Phone)
@@ -41,7 +41,7 @@ export default function Update() {
         
         <Layout>
             <ToastContainer position="bottom-right" />
-       <div className="bg-white h-5/6 w-11/12 md:ml-16  text-white antialiased px-4 py-2 md:py-6 flex flex-col justify-center ">
+       <div className="bg-transparent h-5/6 w-11/12 md:ml-16  text-white antialiased px-4 py-2 md:py-6 flex flex-col justify-center ">
         <div className="relative py-10 min-h-3/4 w-10/12 min-w-3/4 md:w-4/12  mx-auto text-center">
           <div className="bg-purple-600 md:relative mt-4 shadow-lg w-100 sm:rounded-lg text-left">
             <div className="py-1 md:py-6 px-8">
@@ -62,18 +62,18 @@ export default function Update() {
               </div>
     
               <div className="mb-2 md:mb-4">
-                <label className="block text-sm font-bold mb-2">
+                <label className="block  text-white text-sm font-bold mb-2">
                 Phonenumber
                 </label>
                 <input
-                  className="shadow appearance-none h-7 md:h-10 md:rounded w-full py-1 px-3 text-xs   leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow appearance-none h-7 md:h-10 md:rounded w-full py-1 px-3 text-xs text-gray-700  leading-tight focus:outline-none focus:shadow-outline"
                   id=" phone "
                   type="number"
                   placeholder="Enter phonenumber"
                   onChange={(event) => {
                     setPhone(event.target.value);
                   }}
-                   />
+                   /> {isphonelen && <span className="mt-2 text-red-600 text-sm">*Enter valid phone number</span>}
               </div>
               <div className="mb-2 md:mb-4">
               <button
